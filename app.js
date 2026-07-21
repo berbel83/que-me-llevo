@@ -1,0 +1,37 @@
+const S={n:0,d:{destination:'',days:3,companions:'pareja',kids:'',types:[],arrival:'coche',mobility:'andando',stay:'hotel',luggage:'maleta'},items:[]},$=q=>document.querySelector(q);
+const Q=[
+['destination','¿Dónde vas o qué plan vas a hacer?','text','Puede ser “Roma”, “Camino de Santiago”, “PortAventura”…'],
+['days','¿Cuánto dura?','number','Indica 1 si es un plan de un día.'],
+['companions','¿Con quién vas?','single',[['solo','👤 Solo'],['pareja','❤️ Pareja'],['familia','👨‍👩‍👧‍👦 Familia'],['amigos','👥 Amigos']]],
+['types','¿Qué tipo de viaje o plan es?','multi',[['ciudad','🏙️ Ciudad'],['playa','🏖️ Playa'],['naturaleza','🌿 Naturaleza'],['montaña','⛰️ Montaña / senderismo'],['camping','🏕️ Camping'],['parque','🎢 Parque temático'],['nieve','❄️ Nieve'],['crucero','🚢 Crucero'],['otro','✨ Otro / especial']]],
+['arrival','¿Cómo llegas?','single',[['coche','🚗 Coche'],['avion','✈️ Avión'],['tren','🚆 Tren'],['bus','🚌 Autobús'],['barco','⛴️ Barco / ferry'],['autocaravana','🚐 Autocaravana']]],
+['mobility','¿Cómo te moverás principalmente allí?','single',[['andando','🚶 Andando'],['publico','🚇 Transporte público'],['coche','🚗 Coche'],['taxi','🚕 Taxi / VTC'],['bici','🚲 Bici / patinete'],['combinado','🔄 Combinado']]],
+['stay','¿Dónde dormirás?','single',[['hotel','🏨 Hotel / apartamento'],['casa','🏠 Casa de familiares'],['camping','🏕️ Camping'],['albergue','🛏️ Albergue'],['autocaravana','🚐 Autocaravana'],['noduerme','☀️ Solo plan de día']]],
+['luggage','¿Qué equipaje llevarás?','single',[['mochila','🎒 Solo mochila'],['cabina','🧳 Equipaje de mano'],['maleta','🧳 Maleta / facturado'],['coche','🚗 Sin límite: voy en coche']]]
+];
+function render(){let [k,t,type,x]=Q[S.n];$('#bar').style.width=(S.n+1)/Q.length*100+'%';let h=`<h2>${t}</h2>`;
+if(type==='text')h+=`<p>${x}</p><input id="field" class="field" value="${S.d[k]}" placeholder="Destino o plan">`;
+if(type==='number')h+=`<p>${x}</p><input id="field" class="field" type="number" min="1" max="90" value="${S.d.days}">`;
+if(type==='single'||type==='multi')h+=`<div class="choices">${x.map(([v,l])=>`<button class="choice ${(type==='multi'?S.d[k].includes(v):S.d[k]===v)?'active':''}" data-v="${v}">${l}</button>`).join('')}</div>`;
+if(k==='companions'&&S.d.companions==='familia')h+=`<input id="kids" class="field" placeholder="Edades de los niños, ej. 5 y 7" value="${S.d.kids}">`;
+$('#step').innerHTML=h;$('#back').style.visibility=S.n?'visible':'hidden';$('#next').textContent=S.n===Q.length-1?'Crear mi lista ✨':'Continuar →';
+document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{if(type==='multi'){let a=S.d[k];a.includes(b.dataset.v)?a.splice(a.indexOf(b.dataset.v),1):a.push(b.dataset.v)}else S.d[k]=b.dataset.v;render()})}
+$('#next').onclick=()=>{let [k,,type]=Q[S.n],f=$('#field');if(f)S.d[k]=type==='number'?Math.max(1,+f.value||1):f.value.trim();if($('#kids'))S.d.kids=$('#kids').value.trim();if(k==='destination'&&!S.d.destination)return alert('Escribe tu destino o plan.');S.n<Q.length-1?(S.n++,render()):generate()};
+$('#back').onclick=()=>{if(S.n){S.n--;render()}};
+const B=[['Documentación','DNI / pasaporte','Comprueba la caducidad.',false],['Documentación','Tarjetas y algo de efectivo','No guardes todo junto.',false],['Salud e higiene','Medicación habitual','Lleva un pequeño margen.',false],['Salud e higiene','Neceser y cepillo de dientes',null,false],['Electrónica','Cargadores',null,false],['Ropa','Ropa interior',null,false],['Ropa','Calcetines',null,false],['Ropa','Calzado cómodo',null,true]];
+function A(a,c,n,t=null,z=false){if(!a.some(x=>x[1]===n))a.push([c,n,t,z])}
+function generate(){let a=B.map(x=>[...x]),d=S.d;A(a,'Ropa',`${Math.min(d.days+1,10)} camisetas / partes de arriba`,'Ajusta si podrás lavar ropa.');A(a,'Ropa',`${Math.max(1,Math.ceil(d.days/2))} pantalones / partes de abajo`);
+if(d.types.includes('playa'))[['Bañador'],['Protector solar SPF 50','Reaplica tras el baño.',true],['Toalla de secado rápido',null,true],['Gorra o sombrero',null,true],['Chanclas']].forEach(x=>A(a,'Playa',...x));
+if(d.types.includes('montaña')||d.types.includes('naturaleza')){A(a,'Aventura','Mochila cómoda',null,true);A(a,'Aventura','Botella de agua',null,true);A(a,'Aventura','Calzado adecuado al terreno','No estrenes calzado en rutas largas.',true)}
+if(d.types.includes('camping')||d.stay==='camping'){A(a,'Camping','Linterna o frontal',null,true);A(a,'Camping','Repelente de insectos',null,true);A(a,'Camping','Saco de dormir adecuado',null,true)}
+if(d.types.includes('parque')){A(a,'Para el parque','Powerbank','Fotos, mapas y apps gastan batería.',true);A(a,'Para el parque','Botella reutilizable',null,true);A(a,'Para el parque','Mochila ligera',null,true);A(a,'Para el parque','Chubasquero fino','Útil para lluvia y atracciones de agua.',true)}
+if(d.types.includes('nieve')){A(a,'Frío y nieve','Guantes');A(a,'Frío y nieve','Gorro');A(a,'Frío y nieve','Ropa térmica',null,true);A(a,'Frío y nieve','Protección solar y labial')}
+if(d.arrival==='avion'){A(a,'Avión','Tarjeta de embarque');A(a,'Avión','Líquidos adaptados al equipaje','Revisa las normas vigentes de tu aeropuerto.')}
+if(['andando','publico','combinado'].includes(d.mobility)){A(a,'Durante el día','Powerbank',null,true);A(a,'Durante el día','Mochila ligera',null,true);A(a,'Durante el día','Botella reutilizable',null,true)}
+if(d.companions==='familia'){A(a,'Familia','Muda extra para los niños');A(a,'Familia','Snacks y agua');A(a,'Familia','Toallitas / pañuelos')}
+if(d.stay==='albergue'){A(a,'Alojamiento','Candado pequeño',null,true);A(a,'Alojamiento','Tapones para los oídos',null,true)}
+S.items=a.map((x,i)=>({id:i,cat:x[0],name:x[1],tip:x[2],amazon:x[3],done:false}));show()}
+function link(n){return'https://www.amazon.es/s?k='+encodeURIComponent(n)+'&tag=travelapps-21'}
+function show(){$('#wizard').classList.add('hidden');$('#result').classList.remove('hidden');$('#title').textContent='Qué llevar a '+S.d.destination;$('#summary').textContent=`${S.d.days} día${S.d.days>1?'s':''} · ${S.d.companions} · ${S.d.types.join(', ')||'viaje general'}.`;$('#note').innerHTML='💡 <b>Consejo TravelApps:</b> revisa siempre requisitos concretos de destinos o experiencias especiales y adapta la lista a tus necesidades personales.';draw()}
+function draw(){let cats=[...new Set(S.items.map(i=>i.cat))];$('#lists').innerHTML=cats.map(c=>`<section class="card"><h3>${c}</h3>${S.items.filter(i=>i.cat===c).map(i=>`<div class="item ${i.done?'done':''}"><input type="checkbox" data-c="${i.id}" ${i.done?'checked':''}><div><div class="name">${i.name}</div>${i.tip?`<div class="tip">${i.tip}</div>`:''}${i.amazon?`<a class="amazon" target="_blank" rel="nofollow sponsored" href="${link(i.name)}">🛒 Ver opciones en Amazon</a>`:''}</div><button class="remove" data-r="${i.id}">×</button></div>`).join('')}</section>`).join('');document.querySelectorAll('[data-c]').forEach(e=>e.onchange=()=>{S.items.find(i=>i.id==e.dataset.c).done=e.checked;draw()});document.querySelectorAll('[data-r]').forEach(e=>e.onclick=()=>{S.items=S.items.filter(i=>i.id!=e.dataset.r);draw()});let n=S.items.length,k=S.items.filter(i=>i.done).length,p=n?Math.round(k/n*100):0;$('#meter').style.width=p+'%';$('#meterText').textContent=`${p}% preparado · ${k} de ${n}`;localStorage.setItem('qml',JSON.stringify(S))}
+$('#add').onclick=()=>{let v=$('#custom').value.trim();if(v){S.items.push({id:Date.now(),cat:'Mis cosas',name:v,tip:null,amazon:false,done:false});$('#custom').value='';draw()}};render();

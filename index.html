@@ -1,17 +1,1 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¿Qué me llevo?</title>
-</head>
-
-<body>
-  <h1>🎒 ¿Qué me llevo?</h1>
-  <p>Tu asistente para preparar cualquier viaje.</p>
-
-  <button onclick="alert('¡TravelApps funciona! 🚀')">
-    Empezar
-  </button>
-</body>
-</html>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>¿Qué me llevo? | TravelApps</title><meta name="description" content="Checklist personalizada para viajes y planes."><link rel="stylesheet" href="style.css"></head><body><header><b>🌍 TravelApps</b><small>Herramientas para viajar mejor</small></header><main><section id="wizard" class="card"><span class="pill">🎒 TravelApps</span><h1>¿Qué me llevo?</h1><p>Prepara una lista personalizada para tu viaje o plan.</p><div class="progress"><i id="bar"></i></div><div id="step"></div><div class="nav"><button id="back" class="alt">← Atrás</button><button id="next">Continuar →</button></div></section><section id="result" class="hidden"><section class="card"><span class="pill">✨ Tu lista</span><h2 id="title"></h2><p id="summary"></p><div class="meter"><i id="meter"></i></div><b id="meterText"></b></section><section class="card note" id="note"></section><div id="lists"></div><section class="card"><h3>➕ Añade algo tuyo</h3><div class="inline"><input id="custom" placeholder="Ej. gafas de lectura"><button id="add">Añadir</button></div></section><section class="card actions"><button onclick="window.print()">🖨️ Imprimir / guardar PDF</button><button class="alt" onclick="localStorage.removeItem('qml');location.reload()">↻ Nueva lista</button></section><p class="legal">Algunos enlaces pueden ser de afiliado. TravelApps puede recibir una comisión sin coste adicional para ti.</p></section></main><footer>Hecho con ❤️ por <b>TravelApps</b></footer><script src="app.js"></script></body></html>
