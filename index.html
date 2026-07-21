@@ -1,19 +1,8 @@
-<!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>¿Qué me llevo? | TravelApps</title><link rel="stylesheet" href="style.css"></head>
-<body><header><b>🌍 TravelApps</b><small>Viaja mejor. Olvida menos.</small></header>
-<main>
-<section id="start" class="card hero"><span class="pill">🎒 ¿Qué me llevo?</span><h1>Cuéntame tu viaje.</h1>
-<p class="lead">No rellenes un formulario eterno. Describe tu plan como se lo contarías a una persona y prepararemos solo lo que realmente necesitas.</p>
-<textarea id="trip" placeholder="Ej.: Voy a hacer el Camino de Santiago Francés durante 7 días en agosto con mi mujer..."></textarea>
-<div class="examples"><button data-example="Voy 5 días a Disneyland París en noviembre con dos niños de 5 y 7 años">🎢 Disneyland con niños</button><button data-example="Voy a hacer el Camino de Santiago Francés durante 7 días en agosto con mi mujer">🥾 Camino de Santiago</button></div>
-<button id="analyze" class="primary wide">Analizar mi viaje ✨</button><div id="startError" class="error hidden"></div></section>
-
-<section id="loading" class="card hidden center"><div class="spinner"></div><h2 id="loadingTitle">Entendiendo tu viaje...</h2><p id="loadingText">Estamos detectando qué hace especial a tu plan.</p></section>
-
-<section id="clarify" class="hidden"><div class="card"><span class="pill">🧠 Hemos entendido esto</span><h2 id="interpretation"></h2><div id="warnings"></div></div><div id="questions"></div><button id="generate" class="primary wide">Crear mi lista inteligente ✨</button><button id="change" class="linkbtn">← Cambiar mi viaje</button></section>
-
-<section id="invalid" class="card hidden"><span class="pill">🤔 Hay algo que revisar</span><h2 id="invalidText"></h2><div id="invalidWarnings"></div><button id="retry" class="primary">Cambiar el viaje</button></section>
-
-<section id="result" class="hidden"><div class="card"><span class="pill">✨ Lista inteligente</span><h2 id="resultTitle"></h2><p id="resultIntro"></p><div class="meter"><i id="meter"></i></div><b id="meterText"></b></div><div id="specialAdvice"></div><div id="lists"></div><div class="card"><h3>➕ Añadir algo mío</h3><div class="inline"><input id="custom" placeholder="Ej. gafas de lectura"><button id="add">Añadir</button></div></div><div class="actions"><button onclick="window.print()">🖨️ Imprimir / PDF</button><button id="newTrip" class="alt">↻ Nuevo viaje</button></div><p class="legal">Las recomendaciones deben contrastarse con requisitos oficiales cuando corresponda. Algunos enlaces pueden ser de afiliado.</p></section>
-</main><footer>Hecho con ❤️ por <b>TravelApps</b></footer><script src="app.js"></script></body></html>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>¿Qué me llevo? · TravelApps</title><link rel="stylesheet" href="style.css"></head><body>
+<header><b>🌍 TravelApps</b><span>Viaja mejor. Olvida menos.</span></header><main>
+<section id="start" class="card hero"><div class="pill">🎒 ¿Qué me llevo?</div><h1>Cuéntame tu viaje.</h1><p>Descríbelo con naturalidad. La app entenderá el contexto y solo preguntará lo que realmente cambie tu equipaje.</p><textarea id="trip" placeholder="Ej.: Voy a hacer el Camino de Santiago Francés 7 días en agosto con mi mujer..."></textarea><button id="analyze" class="main">Preparar mi viaje ✨</button><div id="error" class="error hide"></div></section>
+<section id="loading" class="card center hide"><div class="spin"></div><h2 id="loadTitle">Entendiendo tu viaje…</h2><p id="loadText">Detectando qué hace especial a tu plan.</p></section>
+<section id="invalid" class="card hide"><div class="pill">🤔 Revisemos esto</div><h2 id="invalidTitle"></h2><div id="invalidWarn"></div><button class="main" id="retry">Cambiar viaje</button></section>
+<section id="questions" class="hide"><div class="card"><div class="pill">🧠 He entendido esto</div><h2 id="understood"></h2><div id="preWarnings"></div></div><div id="qList"></div><button class="main full" id="generate">Crear mi lista inteligente ✨</button><button class="ghost full" id="back">← Cambiar viaje</button></section>
+<section id="result" class="hide"><div class="card"><div class="pill">✨ Tu equipaje inteligente</div><h2 id="title"></h2><p id="intro"></p><div class="meter"><i id="meter"></i></div><b id="meterText"></b></div><div id="strategy"></div><div id="verify"></div><div id="lists"></div><div id="leave"></div><div class="card"><h3>➕ Añadir algo mío</h3><div class="row"><input id="custom" placeholder="Ej. gafas de lectura"><button id="add">Añadir</button></div></div><div class="actions"><button onclick="window.print()">🖨️ Imprimir / PDF</button><button id="newTrip" class="ghost">↻ Nuevo viaje</button></div><p class="legal">Comprueba siempre en fuentes oficiales los requisitos que puedan cambiar. Algunos enlaces pueden ser de afiliado.</p></section>
+</main><footer>TravelApps · ¿Qué me llevo?</footer><script src="app.js"></script></body></html>
