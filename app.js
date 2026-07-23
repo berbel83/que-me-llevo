@@ -198,8 +198,7 @@ async function initImportedPlan(){
     return;
   }
 
-  const tripText =
-    buildTripFromPlan(importedPlan);
+  const tripText = buildTripFromPlan(importedPlan);
 
   if(!tripText){
     return;
@@ -207,21 +206,79 @@ async function initImportedPlan(){
 
   $("#trip").value = tripText;
 
-  // Marcamos visualmente que viene de El Planazo
-  const errorBox = $("#error");
+  $("#start").classList.add("hide");
 
-  if(errorBox){
-    errorBox.textContent =
-      "🗺️ Viaje importado desde El Planazo. Hemos recibido tu itinerario completo.";
+  renderImportedPlan(importedPlan);
 
-    errorBox.classList.remove("hide");
+  $("#imported").classList.remove("hide");
+}
+
+function renderImportedPlan(plan){
+  const title =
+    plan.title ||
+    plan.destination ||
+    "Tu viaje de El Planazo";
+
+  $("#importedTitle").textContent = title;
+
+  $("#importedSummary").textContent =
+    plan.summary ||
+    "Hemos recibido los datos de tu viaje para preparar una lista personalizada.";
+
+  const meta = [];
+
+  if(plan.durationDays){
+    meta.push(`📅 ${plan.durationDays} días`);
   }
 
-  // Analizamos automáticamente para que el usuario
-  // no tenga que volver a escribir ni pulsar el primer botón.
-  setTimeout(()=>{
-    $("#analyze").click();
-  },150);
+  if(plan.dates?.approxMonth){
+    meta.push(`🗓️ ${plan.dates.approxMonth}`);
+  }
+
+  if(plan.companions){
+    meta.push(`👤 ${plan.companions}`);
+  }
+
+  if(
+    Array.isArray(plan.kidsAges) &&
+    plan.kidsAges.length
+  ){
+    meta.push(
+      `👧 ${plan.kidsAges.join(", ")} años`
+    );
+  }
+
+  if(
+    Array.isArray(plan.transport) &&
+    plan.transport.length
+  ){
+    meta.push(
+      `🚆 ${plan.transport.join(" · ")}`
+    );
+  }else if(plan.transport){
+    meta.push(
+      `🚆 ${plan.transport}`
+    );
+  }
+
+  $("#importedMeta").innerHTML =
+    meta.map(x=>
+      `<span class="imported-meta-chip">${esc(x)}</span>`
+    ).join("");
+
+  const days =
+    Array.isArray(plan.days)
+      ? plan.days
+      : [];
+
+  $("#importedDays").innerHTML =
+    days.length
+      ? days.map(day=>
+          `<span class="imported-day">
+            Día ${esc(day.day || "")} · ${esc(day.location || day.title || "")}
+          </span>`
+        ).join("")
+      : `<span class="imported-day">Itinerario recibido</span>`;
 }
 
 function show(id){
@@ -586,5 +643,25 @@ function esc(s){
     }[m])
   );
 }
+
+$("#importedGenerate").onclick=()=>{
+  $("#imported").classList.add("hide");
+  $("#analyze").click();
+};
+
+$("#importedEdit").onclick=()=>{
+  importedPlan=null;
+
+  $("#imported").classList.add("hide");
+  $("#start").classList.remove("hide");
+  $("#trip").value="";
+
+  history.replaceState(
+    {},
+    "",
+    window.location.pathname
+  );
+};
+
 // Iniciar integración con El Planazo
 initImportedPlan();
