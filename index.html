@@ -1,8 +1,263 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>¿Qué me llevo? · TravelApps</title><link rel="stylesheet" href="style.css"></head><body>
-<header><b>🌍 TravelApps</b><span>Viaja mejor. Olvida menos.</span></header><main>
-<section id="start" class="card hero"><div class="pill">🎒 ¿Qué me llevo?</div><h1>Cuéntame tu viaje.</h1><p>Descríbelo con naturalidad. La app entenderá el contexto y solo preguntará lo que realmente cambie tu equipaje.</p><textarea id="trip" placeholder="Ej.: Voy a hacer el Camino de Santiago Francés 7 días en agosto con mi mujer..."></textarea><button id="analyze" class="main">Preparar mi viaje ✨</button><div id="error" class="error hide"></div></section>
-<section id="loading" class="card center hide"><div class="spin"></div><h2 id="loadTitle">Entendiendo tu viaje…</h2><p id="loadText">Detectando qué hace especial a tu plan.</p></section>
-<section id="invalid" class="card hide"><div class="pill">🤔 Revisemos esto</div><h2 id="invalidTitle"></h2><div id="invalidWarn"></div><button class="main" id="retry">Cambiar viaje</button></section>
-<section id="questions" class="hide"><div class="card"><div class="pill">🧠 He entendido esto</div><h2 id="understood"></h2><div id="preWarnings"></div></div><div id="qList"></div><button class="main full" id="generate">Crear mi lista inteligente ✨</button><button class="ghost full" id="back">← Cambiar viaje</button></section>
-<section id="result" class="hide"><div class="card"><div class="pill">✨ Tu equipaje inteligente</div><h2 id="title"></h2><p id="intro"></p><div class="meter"><i id="meter"></i></div><b id="meterText"></b></div><div id="strategy"></div><div id="verify"></div><div id="lists"></div><div id="leave"></div><div class="card"><h3>➕ Añadir algo mío</h3><div class="row"><input id="custom" placeholder="Ej. gafas de lectura"><button id="add">Añadir</button></div></div><div class="actions"><button onclick="window.print()">🖨️ Imprimir / PDF</button><button id="newTrip" class="ghost">↻ Nuevo viaje</button></div><p class="legal">Comprueba siempre en fuentes oficiales los requisitos que puedan cambiar. Algunos enlaces pueden ser de afiliado.</p></section>
-</main><footer>TravelApps · ¿Qué me llevo?</footer><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>¿Qué me llevo? · TravelApps</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">🌍</div>
+      <div>
+        <strong>TravelApps</strong>
+        <span>Viaja mejor. Olvida menos.</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================================================
+         INICIO
+    =================================================== -->
+
+    <section id="start" class="hero-shell">
+
+      <div class="hero-badge">
+        <span>🎒</span>
+        <span>¿Qué me llevo?</span>
+      </div>
+
+      <h1>
+        Tu equipaje perfecto,
+        <span>sin olvidos.</span>
+      </h1>
+
+      <p class="hero-copy">
+        Cuéntame tu viaje con tus propias palabras.
+        Analizaremos el destino, la duración y lo que vas a hacer
+        para preparar una lista realmente útil.
+      </p>
+
+      <div class="trip-box">
+        <div class="trip-box-label">
+          <span>🗺️</span>
+          <span>¿A dónde te vas?</span>
+        </div>
+
+        <textarea
+          id="trip"
+          placeholder="Ej.: Voy 7 días a China en diciembre. Visitaré Pekín, la Gran Muralla y Xi'an..."
+        ></textarea>
+
+        <button id="analyze" class="main hero-action">
+          <span>✨</span>
+          Preparar mi viaje
+        </button>
+
+        <div id="error" class="error hide"></div>
+      </div>
+
+      <div class="travelapps-note">
+        <div class="note-icon">🧭</div>
+        <div>
+          <strong>También funciona con El Planazo</strong>
+          <span>
+            Si vienes desde un itinerario ya creado,
+            cargaremos automáticamente toda la información del viaje.
+          </span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         CARGANDO
+    =================================================== -->
+
+    <section id="loading" class="card center hide loading-card">
+
+      <div class="loader-orbit">
+        <div class="spin"></div>
+      </div>
+
+      <div class="pill">✨ TravelApps está pensando</div>
+
+      <h2 id="loadTitle">
+        Entendiendo tu viaje…
+      </h2>
+
+      <p id="loadText">
+        Detectando qué hace especial a tu plan.
+      </p>
+
+    </section>
+
+
+    <!-- ==================================================
+         VIAJE NO VÁLIDO
+    =================================================== -->
+
+    <section id="invalid" class="card hide">
+
+      <div class="section-icon">🤔</div>
+
+      <div class="pill">
+        Revisemos esto
+      </div>
+
+      <h2 id="invalidTitle"></h2>
+
+      <div id="invalidWarn"></div>
+
+      <button class="main full" id="retry">
+        ← Cambiar viaje
+      </button>
+
+    </section>
+
+
+    <!-- ==================================================
+         PREGUNTAS
+    =================================================== -->
+
+    <section id="questions" class="hide">
+
+      <div class="card understood-card">
+
+        <div class="eyebrow">
+          <span>🧠</span>
+          VIAJE ENTENDIDO
+        </div>
+
+        <h2 id="understood"></h2>
+
+        <div id="preWarnings"></div>
+
+      </div>
+
+      <div id="qList"></div>
+
+      <div class="sticky-actions">
+        <button class="main full" id="generate">
+          <span>🎒</span>
+          Crear mi lista inteligente
+        </button>
+
+        <button class="ghost full" id="back">
+          ← Cambiar viaje
+        </button>
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         RESULTADO
+    =================================================== -->
+
+    <section id="result" class="hide">
+
+      <div class="result-hero">
+
+        <div class="result-topline">
+          <div class="result-icon">🎒</div>
+
+          <div class="eyebrow">
+            TU EQUIPAJE INTELIGENTE
+          </div>
+        </div>
+
+        <h2 id="title"></h2>
+
+        <p id="intro"></p>
+
+        <div class="progress-wrap">
+
+          <div class="progress-copy">
+            <span>Progreso</span>
+            <strong id="meterText"></strong>
+          </div>
+
+          <div class="meter">
+            <i id="meter"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div id="strategy"></div>
+
+      <div id="verify"></div>
+
+      <div id="lists"></div>
+
+      <div id="leave"></div>
+
+
+      <div class="card add-card">
+
+        <div class="add-title">
+          <span>➕</span>
+          <div>
+            <h3>Añadir algo mío</h3>
+            <p>
+              Añade cualquier cosa personal que no quieras olvidar.
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <input
+            id="custom"
+            placeholder="Ej. gafas de lectura"
+          >
+
+          <button id="add">
+            Añadir
+          </button>
+        </div>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button onclick="window.print()">
+          🖨️ Imprimir / PDF
+        </button>
+
+        <button id="newTrip" class="ghost">
+          ↻ Nuevo viaje
+        </button>
+
+      </div>
+
+
+      <p class="legal">
+        Comprueba siempre en fuentes oficiales los requisitos que puedan cambiar.
+        Algunos enlaces pueden ser de afiliado.
+      </p>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <span>🌍</span>
+      <strong>TravelApps</strong>
+    </div>
+
+    <span>¿Qué me llevo?</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
