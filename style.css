@@ -872,6 +872,219 @@ footer{
 }
 
 /* =========================
+   VIAJE IMPORTADO EL PLANAZO
+========================= */
+
+.imported-shell{
+  position:relative;
+  overflow:hidden;
+  padding:38px;
+  border-radius:34px;
+  background:
+    linear-gradient(145deg,#fff 0%,#fff8f1 100%);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+
+.imported-shell:before{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:-120px;
+  top:-120px;
+  border-radius:50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(239,124,69,.16) 0%,
+      rgba(239,124,69,0) 70%
+    );
+}
+
+.imported-badge{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:#eaf6ec;
+  color:#41734c;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.imported-icon{
+  position:relative;
+  z-index:1;
+  display:grid;
+  place-items:center;
+  width:64px;
+  height:64px;
+  margin-top:24px;
+  border-radius:22px;
+  background:var(--primary-soft);
+  font-size:31px;
+}
+
+.imported-shell h1{
+  position:relative;
+  z-index:1;
+  margin:18px 0 8px;
+  max-width:610px;
+  font-size:44px;
+  line-height:1.02;
+  letter-spacing:-.05em;
+}
+
+.imported-summary{
+  position:relative;
+  z-index:1;
+  max-width:620px;
+  margin:0;
+  font-size:15px;
+  line-height:1.6;
+}
+
+.imported-meta{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:22px;
+}
+
+.imported-meta-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 11px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--line);
+  color:#59534d;
+  font-size:12px;
+  font-weight:750;
+  box-shadow:var(--shadow-soft);
+}
+
+.imported-route{
+  position:relative;
+  z-index:1;
+  margin-top:24px;
+  padding:18px;
+  border-radius:22px;
+  background:rgba(255,255,255,.8);
+  border:1px solid var(--line);
+}
+
+.imported-route-label{
+  margin-bottom:13px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.imported-days{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.imported-day{
+  padding:8px 11px;
+  border-radius:12px;
+  background:var(--surface-soft);
+  color:#59534d;
+  font-size:12px;
+  font-weight:700;
+}
+
+.imported-message{
+  position:relative;
+  z-index:1;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  margin-top:18px;
+  padding:16px;
+  border-radius:20px;
+  background:#fff8e7;
+  border:1px solid #f0dfb8;
+}
+
+.imported-message > span{
+  font-size:24px;
+}
+
+.imported-message strong{
+  display:block;
+  font-size:14px;
+}
+
+.imported-message p{
+  margin:3px 0 0;
+  font-size:12px;
+  line-height:1.5;
+}
+
+.imported-action{
+  position:relative;
+  z-index:1;
+  width:100%;
+  min-height:56px;
+  margin-top:20px;
+  border-radius:18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  padding:15px 20px;
+  font-size:15px;
+  font-weight:900;
+}
+
+.imported-edit{
+  position:relative;
+  z-index:1;
+  width:100%;
+  min-height:48px;
+  margin-top:8px;
+  border-radius:16px;
+  font-weight:800;
+}
+
+@media(max-width:640px){
+
+  .imported-shell{
+    padding:26px 20px;
+    border-radius:28px;
+  }
+
+  .imported-shell h1{
+    font-size:36px;
+  }
+
+  .imported-icon{
+    width:56px;
+    height:56px;
+    border-radius:19px;
+    font-size:27px;
+  }
+
+  .imported-route{
+    padding:15px;
+  }
+}
+
+/* =========================
    PRINT
 ========================= */
 
