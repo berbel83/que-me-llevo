@@ -644,9 +644,42 @@ function esc(s){
   );
 }
 
-$("#importedGenerate").onclick=()=>{
+$("#importedGenerate").onclick=async()=>{
   $("#imported").classList.add("hide");
-  $("#analyze").click();
+
+  const trip=$("#trip").value.trim();
+
+  show("loading");
+  setLoad(
+    "Preparando tu equipaje…",
+    "Usando todo el itinerario recibido desde El Planazo."
+  );
+
+  try{
+    analysis=await call({
+      mode:"analyze",
+      trip
+    });
+
+    const out=await call({
+      mode:"generate",
+      trip,
+      analysis,
+      answers:{}
+    });
+
+    renderResult(out);
+
+  }catch(e){
+    console.error("ERROR GENERANDO VIAJE IMPORTADO:",e);
+
+    $("#imported").classList.remove("hide");
+
+    alert(
+      "No hemos podido crear la lista. Error: "+
+      (e?.message || "desconocido")
+    );
+  }
 };
 
 $("#importedEdit").onclick=()=>{
